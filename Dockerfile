@@ -21,7 +21,13 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
-RUN apt-get install -y oracle-java8-installer net-tools git
+RUN apt-get install -y oracle-java8-installer net-tools git wget
+RUN wget http://mirrors.dcarsat.com.ar/apache/zeppelin/zeppelin-0.6.1/zeppelin-0.6.1-bin-all.tgz
+RUN tar xvfz zeppelin-0.6.1-bin-all.tgz
+RUN mv zeppelin-0.6.1-bin-all zeppelin
+RUN mkdir -p /opt
+RUN mv zeppelin /opt
+RUN rm zeppelin-0.6.1-bin-all.tgz
 
 # Copy configuration file and deploy Zeppelin
 COPY fs /
